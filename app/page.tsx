@@ -5,16 +5,15 @@ import Link from "next/link"
 import { ArrowRight, MessageSquare, Users, LinkIcon, Sparkles } from "lucide-react"
 import { motion } from "framer-motion"
 import Image from "next/image"
-import { Github, Linkedin, Mail } from 'lucide-react';
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col ">
       <header className="border-b bg-background/80 backdrop-blur-sm fixed w-full z-10">
         <div className="container flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-2 font-bold text-xl">
             <div className="relative h-8 w-8">
-              <Image src="/ChatGPT Image Apr 26, 2025, 09_06_30 AM.png" alt="ConnectMe Logo" fill className="object-contain rounded-full" />
+              <Image src="/logo-connectMe.png" alt="ConnectMe Logo" fill className="object-contain rounded-full"  />
             </div>
             <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-transparent bg-clip-text">
               ConnectMe
@@ -44,7 +43,7 @@ export default function Home() {
           <div className="absolute -top-40 -right-40 w-80 h-80 bg-pink-500/30 rounded-full blur-3xl"></div>
           <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-500/30 rounded-full blur-3xl"></div>
 
-          <div className="container px-4 md:px-6 relative z-10">
+          <div className="container px-4 md:px-6 relative ">
             <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:grid-cols-2">
               <motion.div
                 className="flex flex-col justify-center space-y-4"
@@ -197,62 +196,36 @@ export default function Home() {
         </section>
       </main>
       <footer className="border-t py-6 md:py-8 bg-background/80 backdrop-blur-sm">
-      <div className="container flex flex-col items-center justify-center gap-4 px-4 md:px-6">
-        <div className="flex items-center gap-2">
-          <div className="relative h-8 w-8">
-            <Image 
-              src="/ChatGPT Image Apr 26, 2025, 09_06_30 AM.png" 
-              alt="ConnectMe Logo" 
-              fill 
-              className="object-contain rounded-full" 
-            />
+        <div className="container flex flex-col items-center justify-center gap-4 px-4 md:px-6">
+          <div className="flex items-center gap-2">
+            <div className="relative h-8 w-8">
+              <Image src="/logo-connectMe.png" alt="ConnectMe Logo" fill className="object-contain rounded-full" />
+            </div>
+            <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-transparent bg-clip-text font-bold">
+              ConnectMe
+            </span>
           </div>
-          <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-transparent bg-clip-text font-bold">
-            ConnectMe
-          </span>
+          <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
+            <Link href="/footer" className="hover:underline hover:text-foreground transition-colors">
+              About
+            </Link>
+            <Link href="/footer" className="hover:underline hover:text-foreground transition-colors">
+              Privacy Policy
+            </Link>
+            <Link href="/footer" className="hover:underline hover:text-foreground transition-colors">
+              Terms of Service
+            </Link>
+            <Link href="/footer" className="hover:underline hover:text-foreground transition-colors">
+              Contact
+            </Link>
+          </div>
+          <div className="text-center">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              © {new Date().getFullYear()} ConnectMe. All rights reserved.
+            </p>
+          </div>
         </div>
-        
-        <div className="flex gap-4">
-          <Link 
-            href="https://github.com/gulshan-kumar" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
-          >
-            <Github className="h-5 w-5" />
-          </Link>
-          <Link 
-            href="https://linkedin.com/in/gulshan-kumar" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
-          >
-            <Linkedin className="h-5 w-5" />
-          </Link>
-          <Link 
-            href="mailto:gulshan73939314@email.com" 
-            className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
-          >
-            <Mail className="h-5 w-5" />
-          </Link>
-        </div>
-        
-        <div className="text-center">
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            © {new Date().getFullYear()} ConnectMe. All rights reserved.
-          </p>
-          <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
-            Crafted with  by Gulshan Kumar
-          </p>
-        </div>
-        
-        <div className="flex gap-2 text-xs text-gray-500 dark:text-gray-400">
-          <span>+91 7393931450</span>
-          <span>•</span>
-          <span>Lucknow, India</span>
-        </div>
-      </div>
-    </footer>
+      </footer>
     </div>
   )
 }

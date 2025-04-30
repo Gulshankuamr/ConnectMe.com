@@ -15,9 +15,12 @@ import { getAllUsers, getUser, type User } from "@/lib/users"
 import { getRecentChats } from "@/lib/chat"
 import { Skeleton } from "@/components/ui/skeleton"
 import Link from "next/link"
-import { MessageSquare, Users, UserPlus } from "lucide-react"
+import { MessageSquare, Users, UserPlus, LinkIcon } from "lucide-react"
 import { motion } from "framer-motion"
 import { UserSearch } from "@/components/user-search"
+import { InviteLink } from "@/components/invite-link"
+import { UserFinder } from "@/components/user-finder"
+import { Separator } from "@/components/ui/separator"
 
 export default function DashboardPage() {
   const { user, isLoading: authLoading } = useAuth()
@@ -188,7 +191,21 @@ export default function DashboardPage() {
           </Card>
         </div>
 
-        {/* User Search */}
+        {/* Invite Link Card */}
+        <Card className="border border-white/20 shadow-lg backdrop-blur-sm bg-white/50 dark:bg-gray-950/50">
+          <CardHeader className="pb-3">
+            <CardTitle className="flex items-center gap-2 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-transparent bg-clip-text">
+              <LinkIcon className="h-5 w-5 text-pink-500" />
+              Your Invite Link
+            </CardTitle>
+            <CardDescription>Share this link with friends to connect and chat</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <InviteLink username={user.username} />
+          </CardContent>
+        </Card>
+
+        {/* User Finder Card */}
         <Card className="border border-white/20 shadow-lg backdrop-blur-sm bg-white/50 dark:bg-gray-950/50">
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center gap-2 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-transparent bg-clip-text">
@@ -198,6 +215,9 @@ export default function DashboardPage() {
             <CardDescription>Search for users by username to start a conversation</CardDescription>
           </CardHeader>
           <CardContent>
+            <UserFinder currentUsername={user.username} />
+            <Separator className="my-4" />
+            <p className="text-sm text-muted-foreground mb-2">Or search from all users:</p>
             <UserSearch onSelectUser={handleSelectUser} excludeUsername={user.username} />
           </CardContent>
         </Card>

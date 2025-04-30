@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -20,9 +20,18 @@ export default function SignupPage() {
   const [confirmPassword, setConfirmPassword] = useState("")
   const [name, setName] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const [redirectUrl, setRedirectUrl] = useState<string | null>(null)
   const router = useRouter()
   const { signup } = useAuth()
   const { toast } = useToast()
+
+  useEffect(() => {
+    // Check if there's a redirect URL stored from an invite
+    const storedRedirect = localStorage.getItem("inviteRedirect")
+    if (storedRedirect) {
+      setRedirectUrl(storedRedirect)
+    }
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -46,7 +55,14 @@ export default function SignupPage() {
           title: "Account created",
           description: "Your account has been created successfully!",
         })
-        router.push("/dashboard")
+
+        // If there's a redirect URL from an invite, go there
+        if (redirectUrl) {
+          localStorage.removeItem("inviteRedirect")
+          router.push(redirectUrl)
+        } else {
+          router.push("/dashboard")
+        }
       } else {
         toast({
           title: "Signup failed",
@@ -81,7 +97,7 @@ export default function SignupPage() {
         <div className="flex justify-center mb-6">
           <div className="flex items-center gap-2">
             <div className="relative h-10 w-10">
-              <Image src="/logo.png" alt="ConnectMe Logo" fill className="object-contain" />
+              <Image src="/logo-connectMe.png" alt="ConnectMe Logo" fill className="object-contain rounded-full" />
             </div>
             <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-transparent bg-clip-text font-bold text-2xl">
               ConnectMe
@@ -96,6 +112,11 @@ export default function SignupPage() {
             </CardTitle>
             <CardDescription className="text-center">
               Enter your information to create a ConnectMe account
+              {redirectUrl && (
+                <p className="mt-2 text-sm font-medium text-pink-500">
+                  You'll be redirected to your invitation after signup
+                </p>
+              )}
             </CardDescription>
           </CardHeader>
           <form onSubmit={handleSubmit}>
